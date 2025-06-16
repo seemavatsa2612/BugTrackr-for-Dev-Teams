@@ -1,33 +1,44 @@
+import React from "react";
+import "./Signup.css"
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up</title>
-  <link rel="stylesheet" href="css/signup.css" />
-</head>
-<body>
-  <div class="signup-container">
-    <form class="signup-form" action="/signup" method="POST">
-      <h2>Create an Account</h2>
+export default function Signup() {
+  const [credentials, setCredentials] = React.useState({
+    email: "",
+    username: "",
+    password: "",
+    role: ""
+  });
+  function handleSubmit(e){
+    e.preventDefault()
+    console.log(credentials)
+  }
+  return (
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <h2>Create an Account</h2>
 
-      <label for="username">Username</label>
-      <input type="text" name="username" required />
+        <label htmlFor="email">Email-ID</label>
+        <input type="email" name="email" value={credentials.email} onChange={(e) => setCredentials((prevValue) => ({...prevValue,email: e.target.value}))} required />
 
-      <label for="password">Password</label>
-      <input type="password" name="password" required />
+        <label htmlFor="username">Username</label>
+        <input type="text" name="username" value={credentials.username} onChange={(e) => setCredentials((prevValue) => ({...prevValue,username: e.target.value}))}required />
 
-      <label for="role">Role</label>
-      <select name="role" required>
-        <option value="">Select Role</option>
-        <option value="admin">Admin</option>
-        <option value="user">User</option>
-      </select>
+        <label htmlFor="password">Password</label>
+        <input type="password" name="password" value={credentials.password} onChange={(e) => setCredentials((prevValue) => ({...prevValue,password: e.target.value}))} required />
 
-      <button type="submit">Sign Up</button>
+        <label htmlFor="role">Role</label>
+        <select name="role" value={credentials.role} onChange={(e) => setCredentials((prevValue) => ({...prevValue,role: e.target.value}))} required>
+          <option value="">Select Role</option>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+        </select>
 
-      <p class="redirect">Already have an account? <a href="login.html">Login</a></p>
-    </form>
-  </div>
-</body>
-</html>
+        <button type="submit">Sign Up</button>
+
+        <p className="redirect">
+          Already have an account? <a href="/">Login</a>
+        </p>
+      </form>
+    </div>
+  );
+}
